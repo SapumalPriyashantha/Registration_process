@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="root" prefHeight="785.0" prefWidth="911.0" styleClass="anchor" stylesheets="@../assets/script/exsistingStudent.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hibernate.controller.ExistingStudentFormController">
+   <children>
+      <ImageView fitHeight="741.0" fitWidth="741.0" layoutX="85.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icon/student_group.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="274.0" layoutY="45.0" prefHeight="45.0" prefWidth="364.0" styleClass="existingStudent_lbl" text="Existing Students" />
+      <Separator layoutX="238.0" layoutY="101.0" prefHeight="0.0" prefWidth="437.0" styleClass="separator_ln" />
+      <TableView fx:id="tblExistingStudent" layoutX="28.0" layoutY="218.0" prefHeight="360.0" prefWidth="856.0" styleClass="student_table">
+        <columns>
+          <TableColumn fx:id="colStudentId" prefWidth="162.0" text="Student ID" />
+          <TableColumn fx:id="colStudentName" prefWidth="274.0" text="Student Name" />
+            <TableColumn fx:id="colStudentAddress" prefWidth="223.0" text="Student Address" />
+            <TableColumn fx:id="colPhoneNumber" prefWidth="196.0" text="Phone Number" />
+        </columns>
+      </TableView>
+      <JFXTextField fx:id="txtSearchQuery" labelFloat="true" layoutX="123.0" layoutY="143.0" prefHeight="31.0" prefWidth="597.0" promptText="Search Student Id" styleClass="search_student" />
+      <JFXButton fx:id="btnSearch" layoutX="768.0" layoutY="143.0" onAction="#searchOnAction" prefHeight="45.0" prefWidth="116.0" styleClass="all_btn" text="Search">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXTextField fx:id="txtNewStudentId" labelFloat="true" layoutX="47.0" layoutY="614.0" promptText="New Student Id" />
+      <JFXTextField fx:id="txtStudentName" labelFloat="true" layoutX="252.0" layoutY="614.0" promptText="Student Name" />
+      <JFXTextField fx:id="txtStudentAddress" labelFloat="true" layoutX="483.0" layoutY="614.0" promptText="Student Adress" />
+      <JFXComboBox fx:id="txtSelectProgram" labelFloat="true" layoutX="709.0" layoutY="614.0" prefHeight="31.0" prefWidth="169.0" promptText="Select Program" />
+      <JFXButton fx:id="btnUpdate" layoutX="731.0" layoutY="695.0" onAction="#updateOnaction" prefHeight="58.0" prefWidth="147.0" styleClass="all_btn" text="Update">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <ImageView fx:id="imgBack" fitHeight="45.0" fitWidth="50.0" layoutX="47.0" layoutY="28.0" onMouseClicked="#navigate" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icon/back.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="btnGetRowdata" layoutX="565.0" layoutY="695.0" onAction="#getRowdataOnAction" prefHeight="58.0" prefWidth="147.0" styleClass="all_btn" text="Get row data">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+</AnchorPane>

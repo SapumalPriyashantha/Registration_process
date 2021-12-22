@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="addStudent" prefHeight="794.0" prefWidth="600.0" styleClass="anchor" stylesheets="@../assets/script/addnewstudent.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hibernate.controller.AddNewStudentsFormController">
+   <children>
+      <Label alignment="CENTER" layoutX="107.0" layoutY="163.0" prefHeight="49.0" prefWidth="386.0" styleClass="addStudent_lbl" text="Add Students" />
+      <Separator layoutX="107.0" layoutY="220.0" prefHeight="0.0" prefWidth="386.0" styleClass="separator_ln" />
+      <JFXTextField fx:id="txtStudentID" focusColor="DARKBLUE" labelFloat="true" layoutX="157.0" layoutY="275.0" prefHeight="35.0" prefWidth="286.0" promptText="Student ID" styleClass="allPromptText" />
+      <JFXTextField fx:id="txtStudentName" focusColor="DARKBLUE" labelFloat="true" layoutX="157.0" layoutY="356.0" prefHeight="35.0" prefWidth="286.0" promptText="Student Name" styleClass="allPromptText" />
+      <JFXTextField fx:id="txtStudentAddress" focusColor="DARKBLUE" labelFloat="true" layoutX="157.0" layoutY="433.0" prefHeight="35.0" prefWidth="286.0" promptText="Student Address" styleClass="allPromptText" />
+      <JFXTextField fx:id="txtStudentPhoneNumber" focusColor="DARKBLUE" labelFloat="true" layoutX="157.0" layoutY="512.0" prefHeight="35.0" prefWidth="286.0" promptText="Student Phone Number" styleClass="allPromptText" />
+      <JFXButton fx:id="btnAdd" buttonType="RAISED" layoutX="443.0" layoutY="685.0" onAction="#AddNewStudentOnAction" prefHeight="63.0" prefWidth="111.0" styleClass="add_bln" text="+ Add">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="btnexistingStudent" buttonType="RAISED" layoutX="221.0" layoutY="685.0" onMouseClicked="#ExistingStudentOnAction" prefHeight="63.0" prefWidth="183.0" styleClass="existingStudent-btn" text="Existing Students">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <ImageView fitHeight="101.0" fitWidth="118.0" layoutX="250.0" layoutY="52.0" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icon/AddStuent.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgBack" fitHeight="58.0" fitWidth="40.0" layoutX="30.0" layoutY="24.0" onMouseClicked="#navigate" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icon/back.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <JFXComboBox fx:id="cmbSelectTrainingProgramme" layoutX="158.0" layoutY="590.0" prefHeight="31.0" prefWidth="286.0" promptText="Select Training Programme" styleClass="allPromptText" />
+   </children>
+</AnchorPane>

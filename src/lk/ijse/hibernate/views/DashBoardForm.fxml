@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="root" prefHeight="468.0" prefWidth="714.0" styleClass="anchor" stylesheets="@../assets/script/dashboard.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hibernate.controller.DashBoardFormController">
+   <children>
+      <Label fx:id="lblSipsewana" alignment="CENTER" layoutX="166.0" layoutY="32.0" prefHeight="58.0" prefWidth="383.0" styleClass="Sipsewana_institute_lbl" text="Sipsewana institute" />
+      <Label fx:id="lblDasshBoard" alignment="CENTER" layoutX="205.0" layoutY="90.0" prefHeight="55.0" prefWidth="306.0" styleClass="dashboard_lbl" text="DashBoard" />
+      <ImageView fx:id="imgAddStudent" fitHeight="140.0" fitWidth="159.0" layoutX="65.0" layoutY="181.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icon/AddStuent.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="imgAddSubject" fitHeight="140.0" fitWidth="159.0" layoutX="289.0" layoutY="181.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icon/AddSubject.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="imgStudentDetails" fitHeight="140.0" fitWidth="159.0" layoutX="511.0" layoutY="181.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icon/StudentDetails.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label fx:id="lblMenu" alignment="CENTER" layoutX="110.0" layoutY="349.0" prefHeight="36.0" prefWidth="499.0" styleClass="menu_lbl" text="Welcome" />
+      <Label fx:id="lblDescription" alignment="CENTER" layoutX="110.0" layoutY="385.0" prefHeight="36.0" prefWidth="499.0" styleClass="description_lbl" text="Please select one of above main operations to proceed" />
+   </children>
+</AnchorPane>

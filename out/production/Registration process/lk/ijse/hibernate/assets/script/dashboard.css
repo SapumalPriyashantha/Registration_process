@@ -1,0 +1,20 @@
+.Sipsewana_institute_lbl{
+    -fx-font-size: 40px;
+    -fx-text-fill: #e20b0b;
+}
+.dashboard_lbl{
+    -fx-font-size: 25px;
+    -fx-text-fill: darkgreen;
+}
+.menu_lbl{
+    -fx-font-size: 25px;
+    -fx-text-fill: darkblue;
+}
+.description_lbl{
+    -fx-font-size: 20px;
+    -fx-text-fill: dodgerblue;
+}
+.anchor{
+    -fx-border-color: black;
+    -fx-background-color: #eae6e6;
+}

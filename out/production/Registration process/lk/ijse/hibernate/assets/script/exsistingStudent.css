@@ -1,0 +1,26 @@
+.existingStudent_lbl{
+    -fx-font-size: 40px;
+    -fx-text-fill: green;
+}
+.separator_ln{
+    -fx-background-color: black;
+}
+.student_table{
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+.student_table-row-cell:odd{
+    -fx-background-color: rgba(46, 204, 113, 0.5);
+}
+.all_btn{
+    -fx-font-size: 20px;
+    -fx-background-color: green;
+    -fx-text-fill: #eae6e6;
+    -fx-background-radius:15;
+}
+.search_student{
+    -fx-font-size: 20px;
+}
+.anchor{
+    -fx-border-color: black;
+    -fx-background-color: #eae6e6;
+}
