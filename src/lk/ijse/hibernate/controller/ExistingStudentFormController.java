@@ -19,10 +19,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.hibernate.Util.FactoryConfiguration;
+import lk.ijse.hibernate.entity.Programme;
 import lk.ijse.hibernate.entity.Student;
+import lk.ijse.hibernate.entity.StudentDetails;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ExistingStudentFormController {
@@ -41,9 +48,13 @@ public class ExistingStudentFormController {
     public JFXComboBox txtSelectProgram;
     public JFXButton btnUpdate;
     int cartSelectedRowForRemove  ;
+    String programmeId;
+    String day;
 
     StudentController s1 = new StudentController();
-    StudentController sc = new StudentController();
+    StudentDetailsController sdi = new StudentDetailsController();
+    TrainingProgrammecontroller t1 = new TrainingProgrammecontroller();
+
     static ObservableList<Student> exsisStudentDetails= FXCollections.observableArrayList();
 
     public void initialize() {
@@ -60,7 +71,7 @@ public class ExistingStudentFormController {
             cartSelectedRowForRemove = (int) newValue;
         });
 
-        setStudentId();
+        loadDate();
 
         try {
             loadTrainingProgrammes();
@@ -74,9 +85,11 @@ public class ExistingStudentFormController {
         List<String> trainingProgrammeName =s1.getAllTrainingProgrammeIds();
         txtSelectProgram.getItems().addAll(trainingProgrammeName);
     }
-    private void setStudentId() {
 
-        txtNewStudentId.setText(s1.setStudentId());
+    private void loadDate() {
+        Date date = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        day=f.format(date);
     }
     public void navigate(MouseEvent event) throws IOException {
         if (event.getSource() instanceof ImageView) {
@@ -106,7 +119,7 @@ public class ExistingStudentFormController {
     }
 
     public void searchOnAction(ActionEvent actionEvent) {
-        List<Student> students = sc.searchStudents(txtSearchQuery.getText());
+        List<Student> students = s1.searchStudents(txtSearchQuery.getText());
         exsisStudentDetails.clear();
 
         for (Student s1 : students) {
@@ -116,11 +129,33 @@ public class ExistingStudentFormController {
     }
 
     public void updateOnaction(ActionEvent actionEvent) {
+        List<Programme> programmeobject = t1.getTrainingProgrammeId((String) txtSelectProgram.getValue());
+        for (Programme p:programmeobject) {
+            programmeId=p.getProgrammeId();
+        }
 
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Student stu1 = session.get(Student.class,txtNewStudentId.getText());
+        Programme pro1 = session.get(Programme.class,programmeId);
+
+        transaction.commit();
+        session.close();
+
+        StudentDetails studentDetails = new StudentDetails(pro1,stu1,day);
+
+        if(sdi.AddStudentDetails(studentDetails)) {
+            new Alert(Alert.AlertType.CONFIRMATION, "Saved Student Details..").show();
+
+        }else {
+            new Alert(Alert.AlertType.WARNING, "Try Again..").show();
+        }
     }
 
     public void getRowdataOnAction(ActionEvent actionEvent) {
         Student temp = exsisStudentDetails.get(cartSelectedRowForRemove);
+        txtNewStudentId.setText(temp.getStudentId());
         txtStudentName.setText(temp.getStudentName());
         txtStudentAddress.setText(temp.getStudentAddress());
     }

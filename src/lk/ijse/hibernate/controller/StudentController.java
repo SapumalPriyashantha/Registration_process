@@ -92,4 +92,43 @@ public class StudentController {
         session.close();
         return list;
     }
+
+
+    public boolean changeStudentId(String oldStudentId, String newStudentIO) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        String hql = "UPDATE Student SET studentId=:New_student_Id WHERE studentId=:Old_student_Id";
+        Query query = session.createQuery(hql);
+        query.setParameter("New_student_Id",newStudentIO);
+        query.setParameter("Old_student_Id",oldStudentId);
+
+        if (query.executeUpdate()>0) {
+            transaction.commit();
+            session.close();
+            return true;
+        }else {
+            transaction.commit();
+            session.close();
+            return false;
+        }
+    }
+
+    public boolean changeStudentDetailId(String oldStudentId, String newStudentIO) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        String hql = "UPDATE StudentDetails SET student.studentId=:New_student_Id WHERE student.studentId=:Old_student_Id";
+        Query query = session.createQuery(hql);
+        query.setParameter("New_student_Id",newStudentIO);
+        query.setParameter("Old_student_Id",oldStudentId);
+
+        if (query.executeUpdate()>0) {
+            transaction.commit();
+            session.close();
+            return true;
+        }else {
+            transaction.commit();
+            session.close();
+            return false;
+        }
+    }
 }

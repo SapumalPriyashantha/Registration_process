@@ -39,7 +39,7 @@
       <JFXTextField fx:id="txtStudentName" labelFloat="true" layoutX="252.0" layoutY="614.0" promptText="Student Name" />
       <JFXTextField fx:id="txtStudentAddress" labelFloat="true" layoutX="483.0" layoutY="614.0" promptText="Student Adress" />
       <JFXComboBox fx:id="txtSelectProgram" labelFloat="true" layoutX="709.0" layoutY="614.0" prefHeight="31.0" prefWidth="169.0" promptText="Select Program" />
-      <JFXButton fx:id="btnUpdate" layoutX="731.0" layoutY="695.0" onAction="#updateOnaction" prefHeight="58.0" prefWidth="147.0" styleClass="all_btn" text="Update">
+      <JFXButton fx:id="btnUpdate" layoutX="731.0" layoutY="695.0" onAction="#updateOnaction" prefHeight="58.0" prefWidth="147.0" styleClass="all_btn" text="+ Add">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
