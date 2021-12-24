@@ -47,12 +47,18 @@ public class ViewStudentDetailsFormController {
     }
 
     private void showStudentDetails() {
-        List<StudentdetailsView> objects = sdi.viewStudentDetails();
+        List<Object[]> objects = sdi.viewStudentDetails();
         exsisStudentDetails.clear();
 
-        for (StudentdetailsView s1 : objects) {
-            exsisStudentDetails.add(new StudentdetailsView(s1.getStudentId(), s1.getStudentName(),
-                    s1.getStudentPhoneNumber(), s1.getProgrammeName(), s1.getRegistrationDate()));
+        for (Object[] s1 : objects) {
+//            String sid =
+//                    String name =
+//                            int phoneNumber =
+//                               String programmeName =
+//                               String registrationdate  =
+            exsisStudentDetails.add(new StudentdetailsView((String) s1[0], (String) s1[1],
+                    (int)s1[2], (String) s1[3], (String) s1[4]));
+//            System.out.println(s1[0]+":"+s1[1]+":"+s1[2]+":"+s1[3]+":"+s1[4]);
         }
     }
 

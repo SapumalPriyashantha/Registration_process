@@ -6,8 +6,8 @@ import javax.persistence.*;
 public class StudentDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator="TABLE_GEN")
+    public long id;
 
     @ManyToOne
     @JoinColumn
@@ -27,18 +27,18 @@ public class StudentDetails {
         this.registrationDate = registrationDate;
     }
 
-    public StudentDetails(int id, Programme programme, Student student, String registrationDate) {
+    public StudentDetails(long id, Programme programme, Student student, String registrationDate) {
         this.id = id;
         this.programme = programme;
         this.student = student;
         this.registrationDate = registrationDate;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

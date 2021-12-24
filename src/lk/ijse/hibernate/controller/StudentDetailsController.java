@@ -8,6 +8,7 @@ import lk.ijse.hibernate.entity.TM.StudentdetailsView;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,35 +25,16 @@ public class StudentDetailsController {
         return true;
     }
 
-    public List<StudentdetailsView> viewStudentDetails() {
+    public List<Object[]> viewStudentDetails() {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
-        List<String> ids = new ArrayList<>();
+        String hql="SELECT s.studentId, s.studentName, s.studentPhoneNumber ,p.programmeName, sd.registrationDate " +
+                "FROM Student s,StudentDetails sd,Programme p WHERE s.studentId = sd.student " +
+                "AND sd.programme = p.programmeId";
+        Query query = session.createQuery(hql);
 
-//        SELECT
-//        student.first_name,
-//                student.last_name,
-//                course.name
-//        FROM student
-//        JOIN student_course
-//        ON student.id = student_course.student_id
-//        JOIN course
-//        ON course.id = student_course.course_id;
-
-    //SELECT s.studentId, s.studentName, s.studentPhoneNumber ,p.programmeName, sd.registrationDate FROM Student AS s INNER JOIN StudentDetails AS sd ON s.studentId = sd.student JOIN StudentDetails AS sd INNER JOIN Programme AS p ON sd.programme = p.programmeId
-    //SELECT s.studentId, s.studentName, s.studentPhoneNumber ,p.programmeName, d.registrationDate FROM Student AS s JOIN StudentDetails AS d ON s.studentId = d.student JOIN StudentDetails AS d ON d.programme = p.programmeId
-        //SELECT s.studentId, s.studentName, s.studentPhoneNumber ,p.programmeName, sd.registrationDate FROM Student s,StudentDetails sd,Programme p WHERE s.studentId = sd.student_studentId AND sd.programme_programmeId = p.programmeId
-        String sql="SELECT s.studentId, s.studentName, s.studentPhoneNumber ,p.programmeName, sd.registrationDate FROM Student s,StudentDetails sd,Programme p WHERE s.studentId = sd.student_studentId AND sd.programme_programmeId = p.programmeId";
-        NativeQuery query = session.createSQLQuery(sql);
-        query.addEntity(Student.class);
-                query.addEntity(StudentDetails.class);
-                query.addEntity(Programme.class);
-        List<StudentdetailsView> list = query.list();
-
-//        for (Programme i:rst) {
-//            ids.add(i.getProgrammeName());
-//        }
+        List<Object[]> list = query.list();
 
         transaction.commit();
         session.close();
