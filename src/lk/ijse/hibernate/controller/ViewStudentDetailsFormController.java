@@ -14,10 +14,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.hibernate.bo.BoFactory;
+import lk.ijse.hibernate.bo.custom.StudentDetailsBO;
 import lk.ijse.hibernate.entity.Student;
 import lk.ijse.hibernate.entity.TM.StudentdetailsView;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ViewStudentDetailsFormController {
@@ -30,7 +33,7 @@ public class ViewStudentDetailsFormController {
     public TableColumn colRegistrationDate;
     public ImageView imgBack;
 
-    StudentDetailsController sdi = new StudentDetailsController();
+    private final StudentDetailsBO studentDetailsBO = (StudentDetailsBO) BoFactory.getBOFactory().getBO(BoFactory.BoTypes.STUDENTDETAILS);
 
     static ObservableList<StudentdetailsView> exsisStudentDetails= FXCollections.observableArrayList();
     public void initialize() {
@@ -43,11 +46,17 @@ public class ViewStudentDetailsFormController {
         tblViewStudentDetails.setItems(exsisStudentDetails);
         exsisStudentDetails.clear();
 
-        showStudentDetails();
+        try {
+            showStudentDetails();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void showStudentDetails() {
-        List<Object[]> objects = sdi.viewStudentDetails();
+    private void showStudentDetails() throws SQLException, ClassNotFoundException {
+        List<Object[]> objects = studentDetailsBO.viewStudentDetails();
         exsisStudentDetails.clear();
 
         for (Object[] s1 : objects) {

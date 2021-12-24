@@ -20,6 +20,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.hibernate.Util.FactoryConfiguration;
+import lk.ijse.hibernate.bo.BoFactory;
+import lk.ijse.hibernate.bo.custom.ProgrammeBO;
+import lk.ijse.hibernate.bo.custom.StudentBO;
+import lk.ijse.hibernate.bo.custom.StudentDetailsBO;
+import lk.ijse.hibernate.dto.ProgrammeDTO;
+import lk.ijse.hibernate.dto.StudentDTO;
+import lk.ijse.hibernate.dto.StudentDetailsDTO;
 import lk.ijse.hibernate.entity.Programme;
 import lk.ijse.hibernate.entity.Student;
 import lk.ijse.hibernate.entity.StudentDetails;
@@ -51,9 +58,9 @@ public class ExistingStudentFormController {
     String programmeId;
     String day;
 
-    StudentController s1 = new StudentController();
-    StudentDetailsController sdi = new StudentDetailsController();
-    TrainingProgrammecontroller t1 = new TrainingProgrammecontroller();
+    private final StudentBO studentBO = (StudentBO) BoFactory.getBOFactory().getBO(BoFactory.BoTypes.STUDENT);
+    private final ProgrammeBO programmeBO = (ProgrammeBO) BoFactory.getBOFactory().getBO(BoFactory.BoTypes.PROGRAMME);
+    private final StudentDetailsBO studentDetailsBO = (StudentDetailsBO) BoFactory.getBOFactory().getBO(BoFactory.BoTypes.STUDENTDETAILS);
 
     static ObservableList<Student> exsisStudentDetails= FXCollections.observableArrayList();
 
@@ -82,7 +89,7 @@ public class ExistingStudentFormController {
         }
     }
     private void loadTrainingProgrammes() throws SQLException, ClassNotFoundException {
-        List<String> trainingProgrammeName =s1.getAllTrainingProgrammeIds();
+        List<String> trainingProgrammeName =programmeBO.getAllTrainingProgrammeIds();
         txtSelectProgram.getItems().addAll(trainingProgrammeName);
     }
 
@@ -118,20 +125,20 @@ public class ExistingStudentFormController {
         }
     }
 
-    public void searchOnAction(ActionEvent actionEvent) {
-        List<Student> students = s1.searchStudents(txtSearchQuery.getText());
+    public void searchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        List<StudentDTO> students = studentBO.searchStudents(txtSearchQuery.getText());
         exsisStudentDetails.clear();
         tblExistingStudent.refresh();
 
-        for (Student s1 : students) {
+        for (StudentDTO s1 : students) {
             exsisStudentDetails.add(new Student(s1.getStudentId(), s1.getStudentName(),
                                  s1.getStudentAddress(), s1.getStudentPhoneNumber()));
         }
     }
 
-    public void updateOnaction(ActionEvent actionEvent) {
-        List<Programme> programmeobject = t1.getTrainingProgrammeId((String) txtSelectProgram.getValue());
-        for (Programme p:programmeobject) {
+    public void updateOnaction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        List<ProgrammeDTO> programmeobject = programmeBO.getTrainingProgrammeId((String) txtSelectProgram.getValue());
+        for (ProgrammeDTO p:programmeobject) {
             programmeId=p.getProgrammeId();
         }
 
@@ -144,9 +151,9 @@ public class ExistingStudentFormController {
         transaction.commit();
         session.close();
 
-        StudentDetails studentDetails = new StudentDetails(pro1,stu1,day);
+        StudentDetailsDTO studentDetails = new StudentDetailsDTO(programmeId,txtNewStudentId.getText(),day);
 
-        if(sdi.AddStudentDetails(studentDetails)) {
+        if(studentDetailsBO.addStudentDetails(studentDetails)) {
             new Alert(Alert.AlertType.CONFIRMATION, "Saved Student Details..").show();
 
         }else {

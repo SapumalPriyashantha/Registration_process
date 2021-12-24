@@ -18,6 +18,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.hibernate.Util.FactoryConfiguration;
+import lk.ijse.hibernate.bo.BoFactory;
+import lk.ijse.hibernate.bo.custom.ProgrammeBO;
+import lk.ijse.hibernate.bo.custom.StudentBO;
+import lk.ijse.hibernate.bo.custom.StudentDetailsBO;
+import lk.ijse.hibernate.dto.ProgrammeDTO;
+import lk.ijse.hibernate.dto.StudentDTO;
+import lk.ijse.hibernate.dto.StudentDetailsDTO;
 import lk.ijse.hibernate.entity.Programme;
 import lk.ijse.hibernate.entity.Student;
 import lk.ijse.hibernate.entity.StudentDetails;
@@ -44,9 +51,9 @@ public class AddNewStudentsFormController {
     String day;
     String programmeId;
 
-    StudentController s1 = new StudentController();
-    TrainingProgrammecontroller t1 = new TrainingProgrammecontroller();
-    StudentDetailsController sdi = new StudentDetailsController();
+    private final StudentBO studentBO = (StudentBO) BoFactory.getBOFactory().getBO(BoFactory.BoTypes.STUDENT);
+    private final ProgrammeBO programmeBO = (ProgrammeBO) BoFactory.getBOFactory().getBO(BoFactory.BoTypes.PROGRAMME);
+    private final StudentDetailsBO studentDetailsBO = (StudentDetailsBO) BoFactory.getBOFactory().getBO(BoFactory.BoTypes.STUDENTDETAILS);
 
     public void initialize(){
         try {
@@ -57,17 +64,22 @@ public class AddNewStudentsFormController {
             e.printStackTrace();
         }
 
-        setStudentId();
+        try {
+            setStudentId();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         loadDate();
     }
 
     private void loadTrainingProgrammes() throws SQLException, ClassNotFoundException {
-        List<String> trainingProgrammeName =s1.getAllTrainingProgrammeIds();
+        List<String> trainingProgrammeName =programmeBO.getAllTrainingProgrammeIds();
         cmbSelectTrainingProgramme.getItems().addAll(trainingProgrammeName);
     }
-    private void setStudentId() {
-
-        txtStudentID.setText(s1.setStudentId());
+    private void setStudentId() throws SQLException, ClassNotFoundException {
+        txtStudentID.setText(studentBO.setStudentId());
     }
 
     private void loadDate() {
@@ -76,22 +88,22 @@ public class AddNewStudentsFormController {
         day=f.format(date);
     }
 
-    public void AddNewStudentOnAction(ActionEvent actionEvent) {
-        Student s2 = new Student(
+    public void AddNewStudentOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        StudentDTO s2 = new StudentDTO(
                 txtStudentID.getText(),txtStudentName.getText(),
                 txtStudentAddress.getText(),
                 Integer.parseInt(txtStudentPhoneNumber.getText())
         );
 
-        if(s1.addStudents(s2)) {
+        if(studentBO.addStudent(s2)) {
             new Alert(Alert.AlertType.CONFIRMATION, "Saved..").show();
 
         }else {
             new Alert(Alert.AlertType.WARNING, "Try Again..").show();
         }
 
-        List<Programme> programmeobject = t1.getTrainingProgrammeId((String) cmbSelectTrainingProgramme.getValue());
-        for (Programme p:programmeobject) {
+        List<ProgrammeDTO> programmeobject = programmeBO.getTrainingProgrammeId((String) cmbSelectTrainingProgramme.getValue());
+        for (ProgrammeDTO p:programmeobject) {
             programmeId=p.getProgrammeId();
         }
 
@@ -99,19 +111,10 @@ public class AddNewStudentsFormController {
 
     }
 
-    private void saveStudentDetails() {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
+    private void saveStudentDetails() throws SQLException, ClassNotFoundException {
+        StudentDetailsDTO studentDetails = new StudentDetailsDTO(programmeId,txtStudentID.getText(),day);
 
-        Student stu1 = session.get(Student.class,txtStudentID.getText());
-        Programme pro1 = session.get(Programme.class,programmeId);
-
-        transaction.commit();
-        session.close();
-
-        StudentDetails studentDetails = new StudentDetails(pro1,stu1,day);
-
-        if(sdi.AddStudentDetails(studentDetails)) {
+        if(studentDetailsBO.addStudentDetails(studentDetails)) {
             new Alert(Alert.AlertType.CONFIRMATION, "Saved Student Details..").show();
 
         }else {

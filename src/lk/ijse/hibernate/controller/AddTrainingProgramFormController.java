@@ -16,6 +16,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.hibernate.bo.BoFactory;
+import lk.ijse.hibernate.bo.custom.ProgrammeBO;
+import lk.ijse.hibernate.dto.ProgrammeDTO;
 import lk.ijse.hibernate.entity.Programme;
 
 import java.io.IOException;
@@ -30,25 +33,31 @@ public class AddTrainingProgramFormController {
     public JFXButton btnAdd;
     public ImageView imgBack;
 
-    TrainingProgrammecontroller t1 = new TrainingProgrammecontroller();
+    private final ProgrammeBO programmeBO = (ProgrammeBO) BoFactory.getBOFactory().getBO(BoFactory.BoTypes.PROGRAMME);
 
     public void initialize(){
 
-        setProgrammeId();
+        try {
+            setProgrammeId();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void setProgrammeId() {
-        txtSProgramID.setText(t1.setProgrammeId());
+    private void setProgrammeId() throws SQLException, ClassNotFoundException {
+        txtSProgramID.setText(programmeBO.setProgrammeId());
     }
 
-    public void AddNewProgramOnAction(ActionEvent actionEvent) {
-        Programme p1 = new Programme(
+    public void AddNewProgramOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        ProgrammeDTO p1 = new ProgrammeDTO(
                 txtSProgramID.getText(),txtSProgramName.getText(),
                 Double.parseDouble(txtDuration.getText()),
                 Double.parseDouble(txtFee.getText())
         );
 
-        if(t1.addTrainingProgramme(p1)) {
+        if(programmeBO.addProgramme(p1)) {
             new Alert(Alert.AlertType.CONFIRMATION, "Saved..").show();
 
         }else {

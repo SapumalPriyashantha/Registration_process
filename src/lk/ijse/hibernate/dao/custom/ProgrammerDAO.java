@@ -4,10 +4,10 @@ import lk.ijse.hibernate.dao.CrudDAO;
 import lk.ijse.hibernate.entity.Programme;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface ProgrammerDAO extends CrudDAO<Programme, String> {
-//    Programme getProgramme(String programmeID) throws SQLException, ClassNotFoundException;
+    String setProgrammeId() throws SQLException, ClassNotFoundException;
+    List<Programme> getTrainingProgrammeId(String programmeName) throws SQLException, ClassNotFoundException;
+    List<String> getAllTrainingProgrammeIds() throws SQLException, ClassNotFoundException;
 }
-//public interface CustomerDAO extends CrudDAO<Customer, String> {
-//    Customer getCustomer(String customerID) throws SQLException, ClassNotFoundException;
-//}
