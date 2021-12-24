@@ -8,7 +8,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane fx:id="root" prefHeight="812.0" prefWidth="992.0" styleClass="anchor" stylesheets="@../assets/script/vieStudentdetails.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hibernate.controller.ViewStudentDetailsFormController">
    <children>
       <ImageView fitHeight="639.0" fitWidth="724.0" layoutX="177.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
@@ -20,8 +19,8 @@
       <Separator layoutX="280.0" layoutY="100.0" prefHeight="3.0" prefWidth="433.0" styleClass="separator_ln" />
       <TableView fx:id="tblViewStudentDetails" layoutX="59.0" layoutY="142.0" prefHeight="585.0" prefWidth="875.0" styleClass="studentDetails_table">
         <columns>
-          <TableColumn fx:id="colStudentID" prefWidth="175.0" text="Student ID" />
-          <TableColumn fx:id="colStudentName" prefWidth="175.0" text="Student Name" />
+          <TableColumn fx:id="colStudentID" prefWidth="140.0" text="Student ID" />
+          <TableColumn fx:id="colStudentName" prefWidth="210.0" text="Student Name" />
             <TableColumn fx:id="colPhoneNumber" prefWidth="175.0" text="Phone Number" />
             <TableColumn fx:id="colProgrammeName" prefWidth="175.0" text="Programme Name" />
             <TableColumn fx:id="colRegistrationDate" prefWidth="175.0" text="Registration Date" />

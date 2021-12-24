@@ -121,6 +121,7 @@ public class ExistingStudentFormController {
     public void searchOnAction(ActionEvent actionEvent) {
         List<Student> students = s1.searchStudents(txtSearchQuery.getText());
         exsisStudentDetails.clear();
+        tblExistingStudent.refresh();
 
         for (Student s1 : students) {
             exsisStudentDetails.add(new Student(s1.getStudentId(), s1.getStudentName(),

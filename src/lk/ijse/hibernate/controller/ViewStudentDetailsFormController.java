@@ -51,14 +51,8 @@ public class ViewStudentDetailsFormController {
         exsisStudentDetails.clear();
 
         for (Object[] s1 : objects) {
-//            String sid =
-//                    String name =
-//                            int phoneNumber =
-//                               String programmeName =
-//                               String registrationdate  =
             exsisStudentDetails.add(new StudentdetailsView((String) s1[0], (String) s1[1],
                     (int)s1[2], (String) s1[3], (String) s1[4]));
-//            System.out.println(s1[0]+":"+s1[1]+":"+s1[2]+":"+s1[3]+":"+s1[4]);
         }
     }
 
